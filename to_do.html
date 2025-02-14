@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,
+        initial-scale=1">
+        <title>to-do list</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div class="todo-container">
+            <h1>My to-do list</h1>
+            <ul class="todo-list" id="todo-list">
+                <!-- task items will go here ==>-->
+            </ul>
+            <div class="input-container">
+                <input type="text" id="new-task" placeholder="what do you need to do?"
+                class="input-field">
+                <button class="add-task" id="add-task-btn">add task</button>
+            </div>
+        </div>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', loadTasks);
+
+                document.getElementById('add-task-btn').addEventListener('click', function() {
+                    const taskContent = document.getElementById('new-task').
+                        value.trim();
+                    if (taskContent) {
+                        addTask(taskContent);
+                        saveTask();
+                        document.getElementById('new-task').value = '';
+                    }
+                });
+
+                function addTask(taskContent, isCompleted = false) {
+                    const todoList = document.getElementById('todo-list');
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('todo-item');
+                    if (isCompleted) listItem.classList.add('completed');
+
+                    const taskInput = document.createElement('input');
+                    taskInput.type = 'text';
+                    taskInput.value = taskContent;
+                    taskInput.classList.add('input-field');
+                    taskInput.setAttribute('readonly', 'true');
+
+                    const editButton = document.createElement('button');
+                    editButton.classList.add('edit-btn');
+                    editButton.innerHTML ='✏️';
+                    editButton.onclick = function () {
+                        if(taskInput.hasAttribute('readonly')){
+                            taskInput.removeAttribute('readonly');
+                            taskInput.focus();
+                            editButton.innerHTML = '💾';
+                        } else {
+                            taskInput.setAttribute('readonly', 'true');
+                            editButton.innerHTML = '✏️';
+                            saveTask();
+                        }
+                        };
+
+                        const deleteButton = document.createElement('button');
+                        deleteButton.classList.add('delete-btn');
+                        deleteButton.innerHTML = '✖️';
+                        deleteButton.onclick = function () {
+                            todoList.removeChild(listItem);
+                            saveTask();
+                        };
+
+                        const completeButton = document.createElement('button');
+                        completeButton.classList.add('complete-btn');
+                        completeButton.innerHTML = '✅';
+                        completeButton.onclick = function () {
+                            taskInput.classList.toggle('completed');
+                            listItem.classList.toggle('completed');
+                            saveTask();
+                        };
+
+                        listItem.appendChild(taskInput);
+                        listItem.appendChild(editButton);
+                        listItem.appendChild(deleteButton);
+                        listItem.appendChild(completeButton);
+                        
+                        todoList.appendChild(listItem);
+                    }
+
+                    function saveTask() {
+                        const tasks = [];
+                        document.querySelectorAll('.todo-item').forEach(item =>
+                            {
+                                tasks.push({
+                                    content: item.querySelector('input').value,
+                                    completed: item.classList.contains('completed')
+                                });
+                            } );
+                            localStorage.setItem('tasks', JSON.stringify(tasks));
+                    }
+
+                    function loadTasks() {
+                        const tasks = JSON.parse(localStorage.getItem('tasks'))
+                            || [];
+                        tasks.forEach(task => addTask(task.content, task.completed));
+                    }
+        </script>
+    </body>
+</html>

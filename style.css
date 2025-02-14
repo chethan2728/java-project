@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
+    display: flex;
+    justify-content:  center;
+    align-items: center;
+    height: 100vh;
+    padding: 10px;
+}
+.todo-container {
+    width: 400px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+h1 {
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+.input-field {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border 0.3s ease;
+}
+.input-field:focus {
+    border: 1px solid #50c878;
+    outline: none;
+}
+.add-task {
+    padding: 10px 20px;
+    border: none;
+    background-color: #50c878;
+    color: whitesmoke;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: backround-color 0.3s ease;
+}
+.add-task:hover {
+    background-color: #45b057;
+}
+.add-task:active {
+    background-color: #3d9e49;
+}
+.todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+.todo-item.completed {
+    background-color: #d0f8e8;
+    text-decoration: line-through;
+    color: #a4b0b7;
+}
+.todo-item button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    font-size: 18px;
+    margin-left: 8px;
+    transition: color 0.3s ease;
+}
+.todo-item button:hover {
+    color: #333;
+}
+.todo-item button.delete-btn {
+    color: #e74c3c;
+}
+.todo-item button.complete-btn {
+    color: #2ecc71;
+}
